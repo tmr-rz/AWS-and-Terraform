@@ -5,8 +5,11 @@ resource "aws_instance" "nginx" {
   instance_type = "t2.micro"
   key_name = "my-keypair-opsschool"
 
-  connection {
-    host = self.private_ip
+ connection {
+   host        = self.private_ip
+   agent       = true
+   type        = "ssh"
+   private_key = file(pathexpand("~/.ssh/id_rsa"))
   }
 
   provisioner "remote-exec" {
@@ -48,7 +51,6 @@ resource "aws_instance" "nginx2" {
    host        = self.private_ip
    agent       = true
    type        = "ssh"
-   user        = "My_user_name"
    private_key = file(pathexpand("~/.ssh/id_rsa"))
   }
   provisioner "remote-exec" {
