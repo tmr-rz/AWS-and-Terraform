@@ -13,7 +13,7 @@ locals {
 module "vpc" {
   source = "../modules/"
 
-  name = "simple-example"
+  name = "prod-vpc"
   cidr = "10.0.0.0/16"
 
   azs             = ["${local.region}a", "${local.region}b", "${local.region}c"]
@@ -28,13 +28,5 @@ module "vpc" {
   public_subnet_tags = {
     Name = "overridden-name-public"
   }
-
-  tags = {
-    Owner       = "user"
-    Environment = "dev"
-  }
-
-  vpc_tags = {
-    Name = "vpc-name"
   }
 }
