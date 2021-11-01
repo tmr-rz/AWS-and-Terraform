@@ -44,3 +44,10 @@ resource "aws_lb_target_group_attachment" "web_server" {
   target_id        = aws_instance.nginx.*.id[count.index]
   port             = 80
 }
+
+resource "aws_lb_cookie_stickiness_policy" "stickiness" {
+  name                     = "stickiness-policy"
+  load_balancer            = aws_elb.lb.id
+  lb_port                  = 80
+  cookie_expiration_period = 600
+}
